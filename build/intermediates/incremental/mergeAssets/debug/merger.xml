@@ -2,10 +2,10 @@
 <merger version="2" >
 
     <dataSet config="main" >
-        <source path="/Users/slaterama/Documents/Development/AndroidStudio/ProjectWrapper/libraries/qslib/src/main/assets" />
+        <source path="/Users/slaterama/Documents/Development/AndroidStudio/QuantumSheep/libraries/qslib/src/main/assets" />
     </dataSet>
     <dataSet config="debug" >
-        <source path="/Users/slaterama/Documents/Development/AndroidStudio/ProjectWrapper/libraries/qslib/src/debug/assets" />
+        <source path="/Users/slaterama/Documents/Development/AndroidStudio/QuantumSheep/libraries/qslib/src/debug/assets" />
     </dataSet>
 
 </merger>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="2" >
+
+    <dataSet config="main" >
+        <source path="/Users/slaterama/Documents/Development/AndroidStudio/QuantumSheep/libraries/qslib/src/main/res" >
+            <file
+                name="ic_launcher"
+                path="/Users/slaterama/Documents/Development/AndroidStudio/QuantumSheep/libraries/qslib/src/main/res/drawable-hdpi/ic_launcher.png"
+                qualifiers="hdpi-v4"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="/Users/slaterama/Documents/Development/AndroidStudio/QuantumSheep/libraries/qslib/src/main/res/drawable-mdpi/ic_launcher.png"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="/Users/slaterama/Documents/Development/AndroidStudio/QuantumSheep/libraries/qslib/src/main/res/drawable-xhdpi/ic_launcher.png"
+                qualifiers="xhdpi-v4"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="/Users/slaterama/Documents/Development/AndroidStudio/QuantumSheep/libraries/qslib/src/main/res/drawable-xxhdpi/ic_launcher.png"
+                qualifiers="xxhdpi-v4"
+                type="drawable" />
+            <file
+                path="/Users/slaterama/Documents/Development/AndroidStudio/QuantumSheep/libraries/qslib/src/main/res/values/strings.xml"
+                qualifiers="" >
+                <string name="app_name" >My Module
+                </string>
+            </file>
+        </source>
+        <source path="/Users/slaterama/Documents/Development/AndroidStudio/QuantumSheep/libraries/qslib/build/generated/res/rs/release" />
+        <source path="/Users/slaterama/Documents/Development/AndroidStudio/QuantumSheep/libraries/qslib/build/generated/res/generated/release" />
+    </dataSet>
+    <dataSet config="release" >
+        <source path="/Users/slaterama/Documents/Development/AndroidStudio/QuantumSheep/libraries/qslib/src/release/res" />
+    </dataSet>
+
+</merger>
