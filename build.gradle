@@ -7,7 +7,7 @@ android {
 	defaultConfig {
 		applicationId "com.slaterama.qslib"
 		minSdkVersion 8
-		targetSdkVersion 8
+		targetSdkVersion 19
 		versionCode 1
 		versionName "1.0"
 	}
