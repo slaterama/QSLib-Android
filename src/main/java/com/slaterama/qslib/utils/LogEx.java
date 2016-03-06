@@ -21,11 +21,17 @@ import android.util.Log;
  * so be sure to call {@link #isLoggable(int)} before every log request. This will allow
  * calls to be programmatically filtered out at via the {@link #setLogLevel(int)} method.</p>
  */
+@SuppressWarnings("unused")
 public final class LogEx {
 
 	/*
 	 * Static constants
 	 */
+
+	/**
+	 * Default string for Placeholders that could not be resolved.
+	 */
+	private static final String UNKNOWN = "[Unknown]";
 
 	/**
 	 * The fully-qualified class name of this LogEx class.
@@ -192,58 +198,52 @@ public final class LogEx {
 			Object arg = args[i];
 			if (arg instanceof Placeholder) {
 				Placeholder placeholder = (Placeholder) arg;
-				try {
-					switch (placeholder) {
-						case CLASS_NAME: {
-							Class cls = Class.forName(element.getClassName());
-							String name = cls.getName();
-							while (TextUtils.isEmpty(name)) {
-								cls = cls.getEnclosingClass();
-								if (cls == null)
-									name = "[Unknown]";
-								else
-									name = cls.getName();
-							}
-							resolvedArgs[i] = name;
-							break;
+				Object resolvedArg;
+				switch (placeholder) {
+					case FILE_NAME:
+						resolvedArg = element.getFileName();
+						break;
+					case HASH_CODE:
+						resolvedArg = element.hashCode();
+						break;
+					case LINE_NUMBER:
+						resolvedArg = element.getLineNumber();
+						break;
+					case MESSAGE:
+						resolvedArg = str;
+						break;
+					case METHOD_NAME:
+						resolvedArg = element.getMethodName();
+						break;
+					default:
+						String name = "";
+						Class cls;
+						try {
+							cls = Class.forName(element.getClassName());
+						} catch (ClassNotFoundException e) {
+							cls = null;
 						}
-						case FILE_NAME:
-							resolvedArgs[i] = element.getFileName();
-							break;
-						case LINE_NUMBER:
-							resolvedArgs[i] = element.getLineNumber();
-							break;
-						case METHOD_NAME:
-							resolvedArgs[i] = element.getMethodName();
-							break;
-						case HASH_CODE:
-							resolvedArgs[i] = element.hashCode();
-							break;
-						case MESSAGE:
-							resolvedArgs[i] = str;
-							break;
-						case SIMPLE_CLASS_NAME: {
-							Class cls = Class.forName(element.getClassName());
-							String name = cls.getSimpleName();
-							while (TextUtils.isEmpty(name)) {
-								cls = cls.getEnclosingClass();
-								if (cls == null)
-									name = "[Unknown]";
-								else
+						while (cls != null) {
+							switch (placeholder) {
+								case CANONICAL_NAME:
+									name = cls.getCanonicalName();
+									break;
+								case SIMPLE_CLASS_NAME:
 									name = cls.getSimpleName();
+									break;
+								case CLASS_NAME:
+								default:
+									name = cls.getName();
+									break;
 							}
-							resolvedArgs[i] = name;
-							break;
+							if (!TextUtils.isEmpty(name)) {
+								break;
+							}
+							cls = cls.getEnclosingClass();
 						}
-						case PACKAGE:
-							resolvedArgs[i] = Class.forName(element.getClassName()).getPackage().getName();
-							break;
-						default:
-							resolvedArgs[i] = "[Unknown]";
-					}
-				} catch (ClassNotFoundException e) {
-					resolvedArgs[i] = "[Unknown]";
+						resolvedArg = (TextUtils.isEmpty(name) ? UNKNOWN : name);
 				}
+				resolvedArgs[i] = resolvedArg;
 			} else {
 				resolvedArgs[i] = arg;
 			}
@@ -524,14 +524,15 @@ public final class LogEx {
 	/**
 	 * Placeholders that will be used to generate formatted logging messages.
 	 */
-	public static enum Placeholder {
+	public enum Placeholder {
+		CANONICAL_NAME,
 		CLASS_NAME,
-		SIMPLE_CLASS_NAME,
-		PACKAGE,
 		FILE_NAME,
-		LINE_NUMBER,
-		METHOD_NAME,
 		HASH_CODE,
-		MESSAGE
+		LINE_NUMBER,
+		MESSAGE,
+		METHOD_NAME,
+		PACKAGE,
+		SIMPLE_CLASS_NAME
 	}
 }
